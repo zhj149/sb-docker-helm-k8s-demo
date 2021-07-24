@@ -160,6 +160,45 @@ fullname: marcoroot
 
 ```
 
+## Jenkins配置
+
+### 添加新pipeline
+
+![new pipeline](pic/new-task.png)
+
+点击New Item >> Multibranch Pipeline
+
+![new pipeline](pic/new-pipeline-2.png)
+
+### 设置git hub credentials
+
+![github credentials](pic/github-credentials.png)
+
+如图，本例使用的是Github：
+
+- 设置仓库的git地址
+- 点击`添加`，选择credentials所影响的层级，根级别即整个jenkins级别，亦可选择本project级别，点击之后，将进入凭据设置页面
+- 进入凭据设置页面之后，如图所示，当前对于Github，如果是public项目，可以不用设置凭据，如果是私有项目，凭据设置为：用户名(Github登录用户名)+token，其中[token创建](https://github.com/settings/tokens)，token的权限只要在`repo`即可。( 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),注意：token不能包含空格，拷贝的时候注意。
+- 输入用户名+token之后，jenkins会自动验证
+- 设置完毕之后，点击验证，页面中应当不提示任何错误，即可认为凭据正确。
+
+### 设置jenkins-pr
+
+![github pr](pic/git-pr.png)
+
+这里选择`仅仅具有拉取请求的分支`
+
+### 保留旧流水线天数
+
+![old pipeline](pic/old-pipeline.png)
+
+### Jenkinsfile
+
+![jenkins file](pic/Jenkinsfile.png)
+
+如图，build configuration，是指使用哪个脚本文件来指示jenkins进行流水线build作业。默认是扫描branch分支下的`Jenkinsfile`文件。所以仓库中的Jenkinsfile必须要存在
+
+
 ## 拓展
 
 [docker tutorial - Use the default bridge network](https://docs.docker.com/network/network-tutorial-standalone/#use-the-default-bridge-network)
