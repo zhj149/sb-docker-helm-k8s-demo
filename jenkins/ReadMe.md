@@ -220,6 +220,12 @@ fullname: marcoroot
 
 可以点击上面的webhook url进行测试，默认会获取最近一次的delivery，如果webhook没有生效，点击该链接同样可以知晓具体原因。
 
+### 测试
+
+提交内容到dev分支，然后新建pr从dev==>master，将会触发jenkins pipeline
+
+![successfully build](pic/success-build.png)
+
 ## 拓展
 
 [docker tutorial - Use the default bridge network](https://docs.docker.com/network/network-tutorial-standalone/#use-the-default-bridge-network)
