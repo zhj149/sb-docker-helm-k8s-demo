@@ -198,8 +198,9 @@ fullname: marcoroot
 
 如图，build configuration，是指使用哪个脚本文件来指示jenkins进行流水线build作业。默认是扫描branch分支下的`Jenkinsfile`文件。所以仓库中的Jenkinsfile必须要存在
 
-
 ## 拓展
 
 [docker tutorial - Use the default bridge network](https://docs.docker.com/network/network-tutorial-standalone/#use-the-default-bridge-network)
 [docker - Networking with standalone containers](https://docs.docker.com/network/network-tutorial-standalone/)
+[Jenkins主动拉取GitHub代码编译并发送邮件]()
+[Jenkins触发远程构建]()
