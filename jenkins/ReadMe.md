@@ -198,6 +198,28 @@ fullname: marcoroot
 
 如图，build configuration，是指使用哪个脚本文件来指示jenkins进行流水线build作业。默认是扫描branch分支下的`Jenkinsfile`文件。所以仓库中的Jenkinsfile必须要存在
 
+上面设置完成之后，点击`保存`保存配置
+
+## 设置Git端
+
+前面我们配置完成我们的pipeline之后，在这里我们需要配置完成Github仓库webhook，以便于jenkins可以获取git相关信息，从而可以创建基于分支的管道。
+
+### 配置github repo webhook
+
+在Github Repo UI >> Settings
+
+![webhook](pic/webhook.png)
+
+![add webhook](pic/add-webhook.png)
+
+- 在这里，payload url：jenkins host url + /github-webhook/，如图所示，`http://121.41.128.117:8080`是我的jenkins地址
+- 如果是仅仅希望在push代码到仓库的时候，触发jenkins构建管道，那么选择第一项，如果要定制何时何种event触发构建管道，选择第三项，然后手动选择具体的event
+- 点击`Add webhook`保存webhook
+
+![add webhook](pic/add-webhook-2.png)
+
+可以点击上面的webhook url进行测试，默认会获取最近一次的delivery，如果webhook没有生效，点击该链接同样可以知晓具体原因。
+
 ## 拓展
 
 [docker tutorial - Use the default bridge network](https://docs.docker.com/network/network-tutorial-standalone/#use-the-default-bridge-network)
