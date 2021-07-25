@@ -162,6 +162,17 @@ fullname: marcoroot
 
 ## Jenkins配置
 
+Jenkins的配置总体要考虑Git Repo与Jenkins的搭配：
+
+- 永远要记住：Github Repo要实现单一职责原则，即一个repo只负责一个事情，例如要构建：应用打包成docker image并上传到docker registry ==> 构建helm chart ==> 安装helm chart到k8s集群，其实此时就要考虑分拆成多个git hub repo
+
+### 单个git hub repo
+
+一个PR:
+
+- Integration Test由github repo本身的action完成
+- 配置Jenkins，通过github webhook，针对于该git hub repo的PR做build
+
 ### 添加新pipeline
 
 ![new pipeline](pic/new-task.png)
