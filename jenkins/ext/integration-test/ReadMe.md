@@ -16,6 +16,15 @@
 
 参考[从 Travis CI 迁移到 GitHub Actions](https://docs.github.com/cn/actions/learn-github-actions/migrating-from-travis-ci-to-github-actions)
 
+### 选择模板
+
+- 本例中是以SB应用作为docker image的对象，所以很自然project是一个sb
+- integration test的目标是测试sb应用是否能够正常编译打包，所以选择java for maven
+- jdk版本为8,关于 [Building and testing Java with Maven](https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven)，关于[action中支持的jdk版本](https://github.com/actions/setup-java)
+
+![java action](pic/java-action.png)
+
+[sample-sb-docker-app](https://github.com/HuangMarco/sample-sb-docker-app)作为负责创建docker image的app
 
 ## 拓展
 
