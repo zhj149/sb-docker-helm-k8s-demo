@@ -226,9 +226,38 @@ fullname: marcoroot
 
 ![successfully build](pic/success-build.png)
 
+## 关于项目的Jenkins
+
+- 同一个jenkins webhook url，一个git hub repo只能配置该jenkins url一个
+
+更多关于[github webhook](https://docs.github.com/en/developers/webhooks-and-events/webhooks/about-webhooks)
+
+
+## 关于Jenkins pipeline tutorial
+
+先查看[流水线入门](https://www.jenkins.io/zh/doc/book/pipeline/getting-started/), 在本例中，采用的是源码管理系统中，即使用Jenkinsfile，在日常产品环境中，很难通过UI来管理流水线。一般都是使用Jenkinsfile来构建pipeline。
+
+查看Jenkinsfile，可以发现有多个步骤，在Jenkins中被称为片段，而片段可以通过片段生成器来生成，即在Jenkins-url后面追加`/pipeline-syntax`，最终效果类似`http://121.41.128.117:8080/pipeline-syntax/`
+
+![stage generator](pic/stage-generator.png)
+
+![snippet generator](snippet-generator.png)
+
+在上面同页面中，点击`步骤参考`，可以查看所有步骤的语法
+
+[Jenkinsfile script中脚本定义-编写](https://www.jenkins.io/doc/book/pipeline/syntax/#declarative-steps)，一般情况下结合Jenkins VSCode extension和Jenkins官网script steps来编写合适的Jenkinsfile
+
+关于创建配置Jenkins Integration test，查看ext/integration-test目录
+
+## Jenkins Doc Extention
+
+在VS Code中，可以通过安装插件`Jenkins Doc - Provides Jenkins documentation and xxx`, `Jenkins in VSCode`, `Jenkinsfile Support - A大多数 syntax highlighting support xxx`来协助我们日常的Jenkinsfile开发
+
 ## 拓展
 
 [docker tutorial - Use the default bridge network](https://docs.docker.com/network/network-tutorial-standalone/#use-the-default-bridge-network)
 [docker - Networking with standalone containers](https://docs.docker.com/network/network-tutorial-standalone/)
 [Jenkins主动拉取GitHub代码编译并发送邮件]()
 [Jenkins触发远程构建]()
+[流水线入门](https://www.jenkins.io/zh/doc/book/pipeline/getting-started/)
+[流水线语法](https://www.jenkins.io/zh/doc/book/pipeline/syntax/)
