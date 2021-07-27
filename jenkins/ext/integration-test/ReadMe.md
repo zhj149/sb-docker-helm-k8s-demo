@@ -26,6 +26,21 @@
 
 [sample-sb-docker-app](https://github.com/HuangMarco/sample-sb-docker-app)作为负责创建docker image的app
 
+选择好模板之后，发现在根目录多出.github/workflow目录
+
+![maven-yaml](pic/maven-yaml.png)
+
+根据需求编辑yaml
+
+### 更新应用
+
+因为是sb应用，所以要初始化package，同时注意：
+
+- 如果是将应用打包成docker image，需要添加Dockerfile
+- 同时对于sb应用，可以追加maven plugin for dockerfile，同时注意与上面的maven.yaml适配，这样github action使用maven对项目进行build
+- github action/maven.yaml中的JDK版本，必须要与pom.yml中的相同
+
+
 ## 拓展
 
 [Installing GitHub Apps](https://docs.github.com/en/developers/apps/managing-github-apps/installing-github-apps)
