@@ -2,7 +2,7 @@
 
 Dockerizing the spring boot app, upload it to the docker image, helm chart invoke the image, then running it in k8s.
 
-## 小试牛刀
+## 初步测试
 
 ### 安装nginx
 
