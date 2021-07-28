@@ -113,12 +113,17 @@ INFRA_run-job-dsl
 
 ![Jenkins Configuration](pic/jenkins-configuration-2.png)
 
+- `Exclude branches that are also filed as PRs`确保PR的源头branch不会被build，比如dev ==> main，那么该设置将会使jenkins不会对dev做重复编译，前提是PR的情况下
+
 ![Jenkins Configuration](pic/jenkins-configuration-3.png)
 
 注意：
 
 - 上述Display Name就是Dashboard中显示的名称
 - Credentials中，密钥必须要有repo中所有权限，同时最好有读取hook相关的权限
+- 设置完成之后，Jenkins首先会执行`Scan Repository`动作，可以从console中查看是否Jenkin连通远程git并扫描到分支
+- 某些情况下，网络抖动会影响build的结果
+- 从主机访问jenkins，如果设置了翻墙代理，访问jenkins触发Job也可能会导致job失败。暂时无法得知具体原因。
 
 配置好了之后，我们首先向dev分支中更新一次，查看Jenkins是否可以感知到push动作。
 
@@ -136,7 +141,43 @@ jenkins无变化，我们approve pr，查看Jenkins。
 
 ![jenkins pr](pic/jenkins-pr.png)
 
-可以看到,jenkins成功的在pr之后，检查了main分支的代码，并开始CD的内容。
+可以看到,jenkins成功的在pr之后，检查了main分支的代码，并开始CD。
+
+##### 解决依然存在的问题 - Filter branch
+
+问题依然存在：
+
+- dev等其他branch已然在github action中被覆盖到了，我们不需要github action以外的jenkins再次帮助我们build dev分支。
+- 我们只需要对main分支做编译
+
+依然通过Jenkins自身配置解决：
+
+![filter-branch](pic/filter-branch.png)
+
+![filter-branch](pic/filter-branch-2.png)
+
+可以看到：
+
+- 可以通过filter branch by name wizard
+- 也可以通过filter branch by regression，注意这里的正则是java类型的正则：参照[Positive and Negative Lookahead](http://www.regular-expressions.info/lookaround.html)
+
+从而让jenkins自动排除某些分支。
+
+再次验证：
+
+![after change](pic/after-change.png)
+
+发现分支dev已经变灰了。而main依然处于激活状态。
+
+来一张最终效果图：
+
+![final result](pic/final-result.png)
+
+##### 解决依然存在的问题 - Review通过之后才能merge
+
+Settings >> Branches
+
+![protect branch](pic/protect-branch.png)
 
 ## 拓展
 
@@ -145,6 +186,9 @@ jenkins无变化，我们approve pr，查看Jenkins。
 [Setting up continuous integration using workflow templates](https://docs.github.com/en/actions/guides/setting-up-continuous-integration-using-workflow-templates)
 [非必须CI-applitools](https://applitools.com/blog/applitools-eyes-github-integration-how-to-visually-test-every-pull-request/)
 [github-bot-usr-github-pull-request-plugin-jenkins](https://github.com/jenkinsci/ghprb-plugin/blob/master/README.md)
+[prometheus-monitoring-on-kubernetes](https://devopscube.com/setup-prometheus-monitoring-on-kubernetes/)
+[jenkins-backup-data-configurations](https://devopscube.com/jenkins-backup-data-configurations/)
+[Understanding and implementing Pipeline as Code](https://docs.cloudbees.com/docs/admin-resources/latest/pipelines/pipeline-as-code)
 
 ## token
 
