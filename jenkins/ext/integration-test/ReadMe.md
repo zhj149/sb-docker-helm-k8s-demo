@@ -73,6 +73,10 @@
 
 为该Github Repo添加集成Jenkins的webhook，每当PR被approved之后，代码进入到main分支，触发Jenkins hook，拉取main分支代码，然后构建docker image。
 
+#### 创建Github access token
+
+只需要`repo:`对应的权限即可。
+
 #### 延伸-配备Jenkins
 
 本来该部分内容应该放在外部jenkins/ReadMe.md中的，但是因为本篇文档主要叙述integration test，所以为了不脱节连贯起来，所以在此对integration test进行延伸。
@@ -103,7 +107,36 @@ TEST_my-project_staging
 UTILITY_install-helpful-tool_staging
 INFRA_run-job-dsl
 
+![new item in jenkins](pic/jenkins-new-item.png)
 
+![Jenkins Configuration](pic/jenkins-configuration-1.png)
+
+![Jenkins Configuration](pic/jenkins-configuration-2.png)
+
+![Jenkins Configuration](pic/jenkins-configuration-3.png)
+
+注意：
+
+- 上述Display Name就是Dashboard中显示的名称
+- Credentials中，密钥必须要有repo中所有权限，同时最好有读取hook相关的权限
+
+配置好了之后，我们首先向dev分支中更新一次，查看Jenkins是否可以感知到push动作。
+
+![Trigger dev](pic/dev-trigger.png)
+
+可见dev分支的提交触发了一次jenkins的编译
+
+我们继续将dev pr到main，查看jenkins.
+
+首先发现,trigger了一次github action来做本分支dev的integration test workflow
+
+![github action](pic/trigger-github-action.png)
+
+jenkins无变化，我们approve pr，查看Jenkins。
+
+![jenkins pr](pic/jenkins-pr.png)
+
+可以看到,jenkins成功的在pr之后，检查了main分支的代码，并开始CD的内容。
 
 ## 拓展
 
@@ -112,3 +145,16 @@ INFRA_run-job-dsl
 [Setting up continuous integration using workflow templates](https://docs.github.com/en/actions/guides/setting-up-continuous-integration-using-workflow-templates)
 [非必须CI-applitools](https://applitools.com/blog/applitools-eyes-github-integration-how-to-visually-test-every-pull-request/)
 [github-bot-usr-github-pull-request-plugin-jenkins](https://github.com/jenkinsci/ghprb-plugin/blob/master/README.md)
+
+## token
+
+Jenkins-webhook-token: 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
+
+## Errors 合集
+
+- Internal Proxy error: 确保你本地host代理处于Pac模式，而不是翻墙模式，和jenkins机器时间同步并无关系，否则从主机访问jenkins web的时候，会报该错误
+- jenkins error: `ERROR: Error cloning remote repo 'origin'`，
+
+错误原因：因为Jenkins没有设置git client, 即git.exe的位置，所以导致无法拉取repo。在Jenkins中设置其git.exe位置：
+
+![jenkins-git](pic/jenkins-git.png)
