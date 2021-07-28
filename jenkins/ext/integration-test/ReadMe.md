@@ -179,6 +179,10 @@ Settings >> Branches
 
 ![protect branch](pic/protect-branch.png)
 
+[About branch protection rules](https://docs.github.com/en/github/administering-a-repository/defining-the-mergeability-of-pull-requests/managing-a-branch-protection-rule)
+
+注意：branch rule如何匹配到某个branch，是通过branch rule名称来决定的。所以命名的时候就要想好要对哪些branch apply rule
+
 ## 拓展
 
 [Installing GitHub Apps](https://docs.github.com/en/developers/apps/managing-github-apps/installing-github-apps)
