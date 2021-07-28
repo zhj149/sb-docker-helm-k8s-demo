@@ -233,16 +233,36 @@ Jenkins的配置总体要考虑Git Repo与Jenkins的搭配：
 
 ### 测试
 
-提交内容到dev分支，然后新建pr从dev==>master，将会触发jenkins pipeline
+提交内容到dev分支，然后新建pr从dev==>main，将会触发jenkins pipeline
 
 ![successfully build](pic/success-build.png)
 
-## 关于项目的Jenkins
+## 项目的CI CD
+
+在日常开发中存在多个CI-CD的植入点：
+
+- 开发人员开启某个branch, -- 此处可埋点，作为一些jenkins pipeline的触发，但是需求程度以及使用率并不高
+- 开发人员开发完成之后，向main发起PR, --此处可埋点，其一，通过github action/TravisCI，触发编译此branch的integration test，对当前branch进行编译，确保branch代码无误，其二，integration test完成之后，pr review流程启动，pr review通过之后，该branch merge到main，此时可继续配置github action，对main分支进行监控，有push动作发生时，对当前main分支进行编译。确保main分支代码没有问题之后，webhook触发jenkins push类型的 hook，可以做很多的事情，例如：再次对main分支进行编译
+
+以下图为例：
+
+![github action](ext/integration-test/pic/git-action.png)
+
+上述，为branch设置了两个触发action的动作：a. push, b. pull request到main
+
+更多关注ext/integration-test目录
+
+### Git hub Repo Integration test
+
+非常重要：关于配置Github Repo Integration test，查看ext/integration-test目录
+
+### Github 配备Jenkins Webhook
 
 - 同一个jenkins webhook url，一个git hub repo只能配置该jenkins url一个
 
 更多关于[github webhook](https://docs.github.com/en/developers/webhooks-and-events/webhooks/about-webhooks)
 
+也可以查看目录ext/面向初学者的Jenkins多分支管道xxx
 
 ## 关于Jenkins pipeline tutorial
 
@@ -252,15 +272,13 @@ Jenkins的配置总体要考虑Git Repo与Jenkins的搭配：
 
 ![stage generator](pic/stage-generator.png)
 
-![snippet generator](snippet-generator.png)
+![snippet generator](pic/snippet-generator.png)
 
 在上面同页面中，点击`步骤参考`，可以查看所有步骤的语法
 
 [Jenkinsfile script中脚本定义-编写](https://www.jenkins.io/doc/book/pipeline/syntax/#declarative-steps)，一般情况下结合Jenkins VSCode extension和Jenkins官网script steps来编写合适的Jenkinsfile
 
-关于创建配置Jenkins Integration test，查看ext/integration-test目录
-
-## Jenkins Doc Extention
+## Jenkins Doc Extension
 
 在VS Code中，可以通过安装插件`Jenkins Doc - Provides Jenkins documentation and xxx`, `Jenkins in VSCode`, `Jenkinsfile Support - A大多数 syntax highlighting support xxx`来协助我们日常的Jenkinsfile开发
 
