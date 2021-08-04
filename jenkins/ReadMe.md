@@ -290,3 +290,6 @@ Jenkins的配置总体要考虑Git Repo与Jenkins的搭配：
 [Jenkins触发远程构建]()
 [流水线入门](https://www.jenkins.io/zh/doc/book/pipeline/getting-started/)
 [流水线语法](https://www.jenkins.io/zh/doc/book/pipeline/syntax/)
+[execute shell script in jenkinsfile](https://stackoverflow.com/questions/21276351/how-can-i-execute-shell-script-in-jenkinsfile)
+[execute shell script](https://github.com/softwaresaved/build_and_test_examples/blob/master/jenkins/Shell.md)
+[check program exists from bash script](https://stackoverflow.com/questions/592620/how-can-i-check-if-a-program-exists-from-a-bash-script)
